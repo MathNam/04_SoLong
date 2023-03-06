@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:09:06 by maaliber          #+#    #+#             */
-/*   Updated: 2023/02/28 11:16:14 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:44:15 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	key_hook(int key, t_game *data)
 		ft_printf("---------------\nEND\n---------------\n");
 		exit_game(data);
 	}
+	render_map(data);
 	return (0);
 }
 
@@ -48,8 +49,7 @@ int	exit_game(t_game *data)
 
 void	play(t_game *data)
 {
-	data->mlx_ptr = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx_ptr, 500, 500, "so_long");
+	xpm_player(data);
 	mlx_hook(data->mlx_win, 17, 0, exit_game, data);
 	mlx_key_hook(data->mlx_win, key_hook, data);
 	//mlx_key_hook(data->mlx_win, key_hook, data);

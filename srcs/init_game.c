@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:31 by maaliber          #+#    #+#             */
-/*   Updated: 2023/02/27 16:57:01 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:48:29 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,10 @@ t_game	*init_game(char *file)
 	set_map(data, file);
 	if (map_error(data))
 		exit_error(map_error(data), 0, data);
-	p1_pt = find_player(data);
+	data->mlx_ptr = mlx_init();
+	data->mlx_win = mlx_new_window(data->mlx_ptr, IMG_W * data->width, IMG_W * data->height, "so_long");
+	generate_map(data);
+	p1_pt = find_point(data, 'P');
 	data->p1.x = p1_pt->x;
 	data->p1.y = p1_pt->y;
 	data->p1.dir = 0;

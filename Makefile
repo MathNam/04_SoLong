@@ -92,6 +92,7 @@ SRCS += error.c
 SRCS += free_ft.c
 SRCS += print_map.c
 SRCS += map_check.c
+SRCS += map_graphics.c
 SRCS += init_game.c
 SRCS += render.c
 #SRCS += move.c

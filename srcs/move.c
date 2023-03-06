@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:28:27 by maaliber          #+#    #+#             */
-/*   Updated: 2023/02/27 16:32:12 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:54:14 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 //	{E_PATH, "invalid map - no valid path"},
 //};
 
-t_point	*find_player(t_game *data)
+t_point	*find_point(t_game *data, char c)
 {
 	int	x;
 	int	y;
@@ -43,7 +43,7 @@ t_point	*find_player(t_game *data)
 		x = 0;
 		while (x < data->width)
 		{
-			if (data->map[y][x].type == 'P')
+			if (data->map[y][x].type == c)
 				return (&data->map[y][x]);
 			x++;
 		}
@@ -55,6 +55,7 @@ t_point	*find_player(t_game *data)
 void	move_up(t_game *data)
 {
 	t_player	*p1;
+	t_point		*ex;
 
 	printf("\nup\n");
 	p1 = &data->p1;
@@ -64,7 +65,13 @@ void	move_up(t_game *data)
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
+			data->map[p1->y][p1->x].img = data->spt.c[1];
 			data->cnt.c--;
+			if (data->cnt.c == 0)
+			{
+				ex = find_point(data, 'E');
+				data->map[ex->y][ex->x].img = data->spt.io[2];
+			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
 			data->end = 2;
@@ -76,6 +83,7 @@ void	move_up(t_game *data)
 void	move_down(t_game *data)
 {
 	t_player	*p1;
+	t_point		*ex;
 
 	printf("\ndown\n");
 	p1 = &data->p1;
@@ -85,7 +93,13 @@ void	move_down(t_game *data)
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
+			data->map[p1->y][p1->x].img = data->spt.c[1];
 			data->cnt.c--;
+			if (data->cnt.c == 0)
+			{
+				ex = find_point(data, 'E');
+				data->map[ex->y][ex->x].img = data->spt.io[2];
+			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
 			data->end = 2;
@@ -97,6 +111,7 @@ void	move_down(t_game *data)
 void	move_left(t_game *data)
 {
 	t_player	*p1;
+	t_point		*ex;
 
 	printf("\nleft\n");
 	p1 = &data->p1;
@@ -106,7 +121,13 @@ void	move_left(t_game *data)
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
+			data->map[p1->y][p1->x].img = data->spt.c[1];
 			data->cnt.c--;
+			if (data->cnt.c == 0)
+			{
+				ex = find_point(data, 'E');
+				data->map[ex->y][ex->x].img = data->spt.io[2];
+			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
 			data->end = 2;
@@ -118,6 +139,7 @@ void	move_left(t_game *data)
 void	move_right(t_game *data)
 {
 	t_player	*p1;
+	t_point		*ex;
 	
 	printf("\nright\n");
 	p1 = &data->p1;
@@ -127,7 +149,13 @@ void	move_right(t_game *data)
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
+			data->map[p1->y][p1->x].img = data->spt.c[1];
 			data->cnt.c--;
+			if (data->cnt.c == 0)
+			{
+				ex = find_point(data, 'E');
+				data->map[ex->y][ex->x].img = data->spt.io[2];
+			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
 			data->end = 2;

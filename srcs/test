@@ -1,0 +1,57 @@
+
+/*
+void	id_sea_tile(t_game *data)
+{
+	int	x;
+	int	y;
+
+	id_sea_border(data);
+	y = 1;
+	while (y < data->height - 1)
+	{
+		x = 1;
+		while (x < data->width - 1)
+		{
+			if (data->map[y][x].type == '1' && (
+				(data->map[y][x - 1].water && data->map[y - 1][x].water) ||
+				(data->map[y][x - 1].water && data->map[y + 1][x].water) ||
+				(data->map[y][x + 1].water && data->map[y - 1][x].water) ||
+				(data->map[y][x + 1].water && data->map[y + 1][x].water)))
+				data->map[y][x].water = 1;
+			x++;
+		}
+		y++;
+	}
+}
+*/
+/*
+void	link_sea_border(t_game *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < data->width)
+	{
+		(data->map[y][x + 1].water && data->map[y - 1][x].water) ||
+				(data->map[y][x - 1].water && data->map[y + 1][x].water) ||
+				(data->map[y][x + 1].water && data->map[y - 1][x].water) ||
+				(data->map[y][x + 1].water && data->map[y + 1][x].water)))
+	}
+	y = 0;
+	while (y < data->height)
+	{
+		data->map[y][0].water = 1;
+		data->map[y][data->width - 1].water = 1;
+		y++;
+	}
+}*/
+/*
+void	*link_img(t_game *data, int x, int y)
+{
+	if (data->map[y][x].water)
+		link_sea_border(data, x, y);
+	if (data->map[y][x].water)
+		link_sea_img(data, x, y);
+	
+}*/

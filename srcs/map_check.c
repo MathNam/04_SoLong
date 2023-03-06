@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:29:09 by maaliber          #+#    #+#             */
-/*   Updated: 2023/02/28 11:12:43 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:53:09 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	path_check(t_game *data)
 	int		x;
 	int		y;
 
-	start = find_player(data);
+	start = find_point(data, 'P');
 	flood(data->map, start);
 	y = 0;
 	while (y < data->height)
