@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:09:06 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/06 18:44:15 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:36:50 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	key_hook(int key, t_game *data)
 {
-	printf(("Key nb: %d\n"), key);
-	render_map(data);
+	if (data->p1.action)
+		return (0);
 	if (key == K_ESC)
 		exit_game(data);
 	if (key == K_W)
@@ -26,13 +26,33 @@ int	key_hook(int key, t_game *data)
 		move_down(data);
 	if (key == K_D)
 		move_right(data);
-	print_map(data);
+	//render_move(data, key);
 	if (data->end > 0)
 	{
 		ft_printf("---------------\nEND\n---------------\n");
 		exit_game(data);
 	}
-	render_map(data);
+	return (0);
+}
+
+int	loop_hook(t_game *data)
+{
+	static int	i;
+	static int	idle_fno;
+	static int	act_fno;
+	
+	if (++i == 1500)
+	{
+		render_map(data);
+		if (data->p1.action)
+			anim_move_p1(data, data->p1.action, act_fno++);
+		if (!data->p1.action)
+			anim_idle_p1(data, idle_fno++);
+		act_fno = act_fno % 8;
+		idle_fno = idle_fno % 5;
+	}
+	if (i == 1500)
+		i = 1;
 	return (0);
 }
 
@@ -49,9 +69,8 @@ int	exit_game(t_game *data)
 
 void	play(t_game *data)
 {
-	xpm_player(data);
 	mlx_hook(data->mlx_win, 17, 0, exit_game, data);
 	mlx_key_hook(data->mlx_win, key_hook, data);
-	//mlx_key_hook(data->mlx_win, key_hook, data);
+	mlx_loop_hook(data->mlx_ptr, loop_hook, data);
 	mlx_loop(data->mlx_ptr);
 }

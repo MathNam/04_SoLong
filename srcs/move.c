@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:28:27 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/06 17:54:14 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:35:41 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	move_up(t_game *data)
 	t_player	*p1;
 	t_point		*ex;
 
-	printf("\nup\n");
 	p1 = &data->p1;
 	if (data->map[p1->y - 1][p1->x].type != '1')
 	{
@@ -65,12 +64,12 @@ void	move_up(t_game *data)
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
-			data->map[p1->y][p1->x].img = data->spt.c[1];
+			data->map[p1->y][p1->x].img = data->img.map.c[1];
 			data->cnt.c--;
 			if (data->cnt.c == 0)
 			{
 				ex = find_point(data, 'E');
-				data->map[ex->y][ex->x].img = data->spt.io[2];
+				data->map[ex->y][ex->x].img = data->img.map.io[2];
 			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
@@ -78,6 +77,7 @@ void	move_up(t_game *data)
 		if (data->map[p1->y][p1->x].type == 'E' && data->cnt.c == 0)
 			data->end = 1;
 	}
+	print_map(data);
 }
 
 void	move_down(t_game *data)
@@ -85,7 +85,6 @@ void	move_down(t_game *data)
 	t_player	*p1;
 	t_point		*ex;
 
-	printf("\ndown\n");
 	p1 = &data->p1;
 	if (data->map[p1->y + 1][p1->x].type != '1')
 	{
@@ -93,19 +92,21 @@ void	move_down(t_game *data)
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
-			data->map[p1->y][p1->x].img = data->spt.c[1];
+			data->map[p1->y][p1->x].img = data->img.map.c[1];
 			data->cnt.c--;
 			if (data->cnt.c == 0)
 			{
 				ex = find_point(data, 'E');
-				data->map[ex->y][ex->x].img = data->spt.io[2];
+				data->map[ex->y][ex->x].img = data->img.map.io[2];
 			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
 			data->end = 2;
 		if (data->map[p1->y][p1->x].type == 'E' && data->cnt.c == 0)
 			data->end = 1;
+		data->p1.action = 1;
 	}
+	print_map(data);
 }
 
 void	move_left(t_game *data)
@@ -113,27 +114,29 @@ void	move_left(t_game *data)
 	t_player	*p1;
 	t_point		*ex;
 
-	printf("\nleft\n");
 	p1 = &data->p1;
+	p1->dir = 1;
 	if (data->map[p1->y][p1->x - 1].type != '1')
 	{
 		p1->x = p1->x - 1;
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
-			data->map[p1->y][p1->x].img = data->spt.c[1];
+			data->map[p1->y][p1->x].img = data->img.map.c[1];
 			data->cnt.c--;
 			if (data->cnt.c == 0)
 			{
 				ex = find_point(data, 'E');
-				data->map[ex->y][ex->x].img = data->spt.io[2];
+				data->map[ex->y][ex->x].img = data->img.map.io[2];
 			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
 			data->end = 2;
 		if (data->map[p1->y][p1->x].type == 'E' && data->cnt.c == 0)
 			data->end = 1;
+		data->p1.action = 1;
 	}
+	print_map(data);
 }
 
 void	move_right(t_game *data)
@@ -141,25 +144,27 @@ void	move_right(t_game *data)
 	t_player	*p1;
 	t_point		*ex;
 	
-	printf("\nright\n");
 	p1 = &data->p1;
+	p1->dir = 0;
 	if (data->map[p1->y][p1->x + 1].type != '1')
 	{
 		p1->x = p1->x + 1;
 		if (data->map[p1->y][p1->x].type == 'C')
 		{
 			data->map[p1->y][p1->x].type = '0';
-			data->map[p1->y][p1->x].img = data->spt.c[1];
+			data->map[p1->y][p1->x].img = data->img.map.c[1];
 			data->cnt.c--;
 			if (data->cnt.c == 0)
 			{
 				ex = find_point(data, 'E');
-				data->map[ex->y][ex->x].img = data->spt.io[2];
+				data->map[ex->y][ex->x].img = data->img.map.io[2];
 			}
 		}
 		if (data->map[p1->y][p1->x].type == 'F')
 			data->end = 2;
 		if (data->map[p1->y][p1->x].type == 'E' && data->cnt.c == 0)
 			data->end = 1;
+		data->p1.action = 1;
 	}
+	print_map(data);
 }
