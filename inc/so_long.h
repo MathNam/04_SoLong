@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:01:58 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/10 15:11:16 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:08:48 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,29 @@
 /*-----Path to image assets-----*/
 /*--        Map tiles        ---*/
 // Sea tiles
-# define SEA_T "assets/sea/top.xpm"
-# define SEA_B "assets/sea/bottom.xpm"
-# define SEA_L "assets/sea/left.xpm"
-# define SEA_R "assets/sea/right.xpm"
-# define SEA_TL "assets/sea/top_left.xpm"
-# define SEA_TR "assets/sea/top_right.xpm"
-# define SEA_BL "assets/sea/bottom_left.xpm"
-# define SEA_BR "assets/sea/bottom_right.xpm"
+# define SEA_T "assets/map/sea/top.xpm"
+# define SEA_B "assets/map/sea/bottom.xpm"
+# define SEA_L "assets/map/sea/left.xpm"
+# define SEA_R "assets/map/sea/right.xpm"
+# define SEA_TL "assets/map/sea/top_left.xpm"
+# define SEA_TR "assets/map/sea/top_right.xpm"
+# define SEA_BL "assets/map/sea/bottom_left.xpm"
+# define SEA_BR "assets/map/sea/bottom_right.xpm"
 // Entry | Exit tiles
-# define ENTRY "assets/io/entry.xpm"
-# define EXIT_0 "assets/io/exit_closed.xpm"
-# define EXIT_1 "assets/io/exit_open.xpm"
+# define ENTRY "assets/map/io/entry.xpm"
+# define EXIT_0 "assets/map/io/exit_closed.xpm"
+# define EXIT_1 "assets/map/io/exit_open.xpm"
 // Ground tiles
-# define GND_0 "assets/floor/std_0.xpm"
-# define GND_1 "assets/floor/std_1.xpm"
-# define GND_2 "assets/floor/std_2.xpm"
+# define GND_0 "assets/map/floor/std_0.xpm"
+# define GND_1 "assets/map/floor/std_1.xpm"
+# define GND_2 "assets/map/floor/std_2.xpm"
 // Collectible tiles
-# define LOOT_0 "assets/collect/closed.xpm"
-# define LOOT_1 "assets/collect/open.xpm"
+# define LOOT_0 "assets/map/collect/closed.xpm"
+# define LOOT_1 "assets/map/collect/open.xpm"
 // Obstacles tiles
-# define WALL_0 "assets/wall/hole.xpm"
-# define WALL_1 "assets/wall/mountain.xpm"
-# define WALL_2 "assets/wall/stone.xpm"
+# define WALL_0 "assets/map/wall/hole.xpm"
+# define WALL_1 "assets/map/wall/mountain.xpm"
+# define WALL_2 "assets/map/wall/stone.xpm"
 /*--      Player sprites     ---*/
 // Idle
 # define IDLE_L0 "assets/player/idle/idle_left_0.xpm"
@@ -132,6 +132,7 @@ typedef struct s_player
 	int		x;
 	int		y;
 	int		dir;
+	int		udlr;
 	int		action;
 	void	*img;
 }	t_player;
@@ -150,7 +151,6 @@ typedef struct s_tiles
 	void	*w[3];
 	void	*io[3];
 	void	*c[2];
-	void	*p[1];
 }	t_tiles;
 
 typedef struct s_sprites
@@ -189,6 +189,8 @@ void	msg_error(int err_id, char *item);
 void	exit_error(int err_id, char *item, t_game *data);
 
 void	free_map(t_point **map, int height);
+void	destroy_tiles(t_game *data);
+void	destroy_sprites(t_game *data);
 void	free_game(t_game *data);
 
 void	file_type_check(char *file);
@@ -234,8 +236,9 @@ void	move_down(t_game *data);
 void	move_left(t_game *data);
 void	move_right(t_game *data);
 
-void	anim_move_p1(t_game *data, int act_no, int fno);
+void	anim_move_p1(t_game *data, int fno);
 void	anim_idle_p1(t_game *data, int fno);
+void	anim_col_p1(t_game *data, int fno);
 
 //Test
 void	render_map(t_game *data);
