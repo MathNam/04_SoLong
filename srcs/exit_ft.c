@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_ft.c                                          :+:      :+:    :+:   */
+/*   exit_ft.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:20:21 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/13 17:00:02 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:14:08 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,48 @@ void	free_game(t_game *data)
 
 void	destroy_tiles(t_game *data)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < 3)
-		mlx_destroy_image(data->mlx_ptr, data->img.map.f[i++]);
+		destroy_image_v2(data->ptr, data->img.map.f[i++]);
 	i = 0;
 	while (i < 8)
-		mlx_destroy_image(data->mlx_ptr, data->img.map.s[i++]);
+		destroy_image_v2(data->ptr, data->img.map.s[i++]);
 	i = 0;
 	while (i < 3)
-		mlx_destroy_image(data->mlx_ptr, data->img.map.w[i++]);
+		destroy_image_v2(data->ptr, data->img.map.w[i++]);
 	i = 0;
 	while (i < 3)
-		mlx_destroy_image(data->mlx_ptr, data->img.map.io[i++]);
+		destroy_image_v2(data->ptr, data->img.map.io[i++]);
 	i = 0;
 	while (i < 2)
-		mlx_destroy_image(data->mlx_ptr, data->img.map.c[i++]);
+		destroy_image_v2(data->ptr, data->img.map.c[i++]);
 }
 
 void	destroy_sprites(t_game *data)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < 10)
-		mlx_destroy_image(data->mlx_ptr, data->img.p1.idle[i++]);
+		destroy_image_v2(data->ptr, data->img.p1.idle[i++]);
 	i = 0;
 	while (i < 16)
-		mlx_destroy_image(data->mlx_ptr, data->img.p1.move[i++]);
+		destroy_image_v2(data->ptr, data->img.p1.move[i++]);
 	i = 0;
 	while (i < 6)
-		mlx_destroy_image(data->mlx_ptr, data->img.p1.act[i++]);
+		destroy_image_v2(data->ptr, data->img.p1.act[i++]);
 	i = 0;
 	while (i < 3)
-		mlx_destroy_image(data->mlx_ptr, data->img.p1.io[i++]);
+		destroy_image_v2(data->ptr, data->img.p1.io[i++]);
+}
+
+void	destroy_num(t_game *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 10)
+		destroy_image_v2(data->ptr, data->img.num[i++]);
 }

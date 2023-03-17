@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:09:06 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/13 17:19:30 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:42:05 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 int	key_hook(int key, t_game *data)
 {
+	t_point		*ex;
+
 	if (data->p1.action > 0)
 		return (0);
 	if (key == K_ESC)
 		exit_game(data);
+	if (data->end)
+		return (0);
 	if (key == K_W)
 		move_up(data);
 	if (key == K_A)
@@ -26,45 +30,39 @@ int	key_hook(int key, t_game *data)
 		move_down(data);
 	if (key == K_D)
 		move_right(data);
-	if (data->end > 0)
+	if (data->p1.c_cnt == data->cnt.c)
 	{
-		ft_printf("---------------\nEND\n---------------\n");
-		exit_game(data);
+		ex = find_point(data, 'E');
+		data->map[ex->y][ex->x].img = data->img.map.io[2];
+		data->cnt.c = -1;
 	}
+	if (data->cnt.c == -1 && data->map[data->p1.y][data->p1.x].type == 'E')
+		data->end = 1;
 	return (0);
 }
 
 int	loop_hook(t_game *data)
 {
 	static int	i;
-	static int	idle_fno;
-	static int	act_fno;
 
-	i++;
-	if (i == 2500)
+	if (data->end > 0 && !(i % 100))
+		end_screen(data);
+	if (++i != 1500)
+		return (0);
+	if (data->end == 0)
 	{
-		/*if (data->end == 1)
-			return(win_screen(data), 0);
-		if (data->end == 2)
-			return(death_screen(data), 0);*/
 		render_map(data);
 		if (data->p1.action == 0)
-			anim_idle_p1(data, idle_fno++);
+			anim_idle_p1(data);
 		else if (data->p1.action == 1)
-			anim_move_p1(data, act_fno++);
+			anim_move_p1(data);
 		else if (data->p1.action == 2)
-			anim_col_p1(data, act_fno++);
-		if (data->p1.action == -1)
-		{
-			act_fno = 0;
-			idle_fno = 0;
-			mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->p1.img,
-				data->p1.x * IMG_W, data->p1.y * IMG_H);
-		}
-		act_fno = act_fno % 8;
-		idle_fno = idle_fno % 5;
-		i = 0;
+			anim_col_p1(data);
+		else if (data->p1.action == -1)
+			anim_spe_p1(data);
+		print_mv_cnt(data, data->mv_cnt);
 	}
+	i = 0;
 	return (0);
 }
 
@@ -72,10 +70,11 @@ int	exit_game(t_game *data)
 {
 	destroy_sprites(data);
 	destroy_tiles(data);
-	mlx_clear_window(data->mlx_ptr, data->mlx_win);
-	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
+	destroy_num(data);
+	mlx_clear_window(data->ptr, data->win);
+	mlx_destroy_window(data->ptr, data->win);
+	mlx_destroy_display(data->ptr);
+	free(data->ptr);
 	free_game(data);
 	exit(0);
 	return (0);
@@ -83,8 +82,8 @@ int	exit_game(t_game *data)
 
 void	play(t_game *data)
 {
-	mlx_hook(data->mlx_win, 17, 0, exit_game, data);
-	mlx_key_hook(data->mlx_win, key_hook, data);
-	mlx_loop_hook(data->mlx_ptr, loop_hook, data);
-	mlx_loop(data->mlx_ptr);
+	mlx_hook(data->win, 17, 0, exit_game, data);
+	mlx_key_hook(data->win, key_hook, data);
+	mlx_loop_hook(data->ptr, loop_hook, data);
+	mlx_loop(data->ptr);
 }

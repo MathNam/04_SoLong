@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:01:58 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/13 17:08:48 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:42:15 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,23 @@
 # define P1_EXIT_0 "assets/player/io/exit_closed.xpm"
 # define P1_EXIT_1 "assets/player/io/exit_open.xpm"
 
+/*--      Number images      ---*/
+# define X0 "assets/num/0.xpm"
+# define X1 "assets/num/1.xpm"
+# define X2 "assets/num/2.xpm"
+# define X3 "assets/num/3.xpm"
+# define X4 "assets/num/4.xpm"
+# define X5 "assets/num/5.xpm"
+# define X6 "assets/num/6.xpm"
+# define X7 "assets/num/7.xpm"
+# define X8 "assets/num/8.xpm"
+# define X9 "assets/num/9.xpm"
+
+/*--     End game images     ---*/
+# define E0 "assets/black.xpm"
+# define E1 "assets/win.xpm"
+# define E2 "assets/game_over.xpm"
+
 enum e_config_error
 {
 	E_SUCCESS = 0,
@@ -134,6 +151,7 @@ typedef struct s_player
 	int		dir;
 	int		udlr;
 	int		action;
+	int		c_cnt;
 	void	*img;
 }	t_player;
 
@@ -166,20 +184,22 @@ typedef struct s_image
 {
 	t_tiles		map;
 	t_sprites	p1;
+	void		*num[10];
+	void		*end[3];
 }	t_image;
 
 typedef struct s_game
 {
-	void		*mlx_ptr;
-	void		*mlx_win;
+	void		*ptr;
+	void		*win;
 	int			width;
 	int			height;
 	t_point		**map;
 	t_player	p1;
-	int			end;
 	t_image		img;
 	t_count		cnt;
 	int			mv_cnt;
+	int			end;
 }	t_game;
 
 /*__Error description functions__*/
@@ -191,6 +211,8 @@ void	exit_error(int err_id, char *item, t_game *data);
 void	free_map(t_point **map, int height);
 void	destroy_tiles(t_game *data);
 void	destroy_sprites(t_game *data);
+void	destroy_num(t_game *data);
+void 	destroy_image_v2(void *mlx_ptr, void *img);
 void	free_game(t_game *data);
 
 void	file_type_check(char *file);
@@ -206,6 +228,8 @@ void	set_map_dim(t_game *data, char *file);
 t_point	**init_map(t_game	*data);
 void	set_point(t_point *pt, char type, int x, int y);
 void	set_map(t_game *data, char *file);
+
+void	xpm_num(t_game *data);
 
 /*__Map generation functions__*/
 // Convert sea tile *.xpm to mlx_image
@@ -235,13 +259,18 @@ void	move_up(t_game *data);
 void	move_down(t_game *data);
 void	move_left(t_game *data);
 void	move_right(t_game *data);
+void	print_mv_cnt(t_game *data, int mv_cnt);
 
-void	anim_move_p1(t_game *data, int fno);
-void	anim_idle_p1(t_game *data, int fno);
-void	anim_col_p1(t_game *data, int fno);
+void	anim_move_p1(t_game *data);
+void	anim_idle_p1(t_game *data);
+void	anim_col_p1(t_game *data);
+void	anim_spe_p1(t_game *data);
 
 //Test
 void	render_map(t_game *data);
+void	end_screen(t_game *data);
+void	xpm_end_game(t_game *data);
+
 int		exit_game(t_game *data);
 void	play(t_game *data);
 

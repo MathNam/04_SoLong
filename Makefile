@@ -89,16 +89,18 @@ SRCS_DIR = ./srcs
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 
 SRCS += error.c
-SRCS += free_ft.c
-SRCS += print_map.c
+SRCS += exit_ft.c
+SRCS += so_long_utils.c
 SRCS += map_error.c
 SRCS += map_graphics.c
 SRCS += init_player.c
 SRCS += init_game.c
 SRCS += render.c
+SRCS += move_count.c
 SRCS += animation.c
 SRCS += play.c
 SRCS += move.c
+SRCS += menu.c
 SRCS += so_long.c
 
 #______________________________________________________________________________#
