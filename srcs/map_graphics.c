@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:06:23 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/15 12:23:55 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:49:13 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,20 @@ void	xpm_map_ground(t_game *data)
 	int	w;
 	int	h;
 
-	data->img.map.io[0] = mlx_xpm_file_to_image(data->ptr, ENTRY, &w, &h);
-	data->img.map.io[1] = mlx_xpm_file_to_image(data->ptr, EXIT_0, &w, &h);
-	data->img.map.io[2] = mlx_xpm_file_to_image(data->ptr, EXIT_1, &w, &h);
 	data->img.map.f[0] = mlx_xpm_file_to_image(data->ptr, GND_0, &w, &h);
 	data->img.map.f[1] = mlx_xpm_file_to_image(data->ptr, GND_1, &w, &h);
 	data->img.map.f[2] = mlx_xpm_file_to_image(data->ptr, GND_2, &w, &h);
-	data->img.map.c[0] = mlx_xpm_file_to_image(data->ptr, LOOT_0, &w, &h);
-	data->img.map.c[1] = mlx_xpm_file_to_image(data->ptr, LOOT_1, &w, &h);
 	data->img.map.w[0] = mlx_xpm_file_to_image(data->ptr, WALL_0, &w, &h);
 	data->img.map.w[1] = mlx_xpm_file_to_image(data->ptr, WALL_1, &w, &h);
 	data->img.map.w[2] = mlx_xpm_file_to_image(data->ptr, WALL_2, &w, &h);
+	data->img.map.io[0] = mlx_xpm_file_to_image(data->ptr, ENTRY, &w, &h);
+	data->img.map.io[1] = mlx_xpm_file_to_image(data->ptr, EXIT_0, &w, &h);
+	data->img.map.io[2] = mlx_xpm_file_to_image(data->ptr, EXIT_1, &w, &h);
+	data->img.map.c[0] = mlx_xpm_file_to_image(data->ptr, LOOT_0, &w, &h);
+	data->img.map.c[1] = mlx_xpm_file_to_image(data->ptr, LOOT_1, &w, &h);
+	data->img.map.e[0] = mlx_xpm_file_to_image(data->ptr, SPK_0, &w, &h);
+	data->img.map.e[1] = mlx_xpm_file_to_image(data->ptr, SPK_1, &w, &h);
+	data->img.map.e[2] = mlx_xpm_file_to_image(data->ptr, SPK_2, &w, &h);
 }
 
 void	sea_tile(t_game *data)
@@ -91,6 +94,8 @@ void	gnd_tile(t_game *data)
 				data->map[y][x].img = data->img.map.io[0];
 			if (data->map[y][x].type == 'E')
 				data->map[y][x].img = data->img.map.io[1];
+			if (data->map[y][x].type == 'X')
+				data->map[y][x].img = data->img.map.e[0];
 			x++;
 		}
 		y++;
@@ -99,8 +104,6 @@ void	gnd_tile(t_game *data)
 
 void	generate_map(t_game *data)
 {
-	xpm_map_sea(data);
-	xpm_map_ground(data);
 	sea_tile(data);
 	gnd_tile(data);
 }

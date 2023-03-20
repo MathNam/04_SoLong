@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:01:58 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/17 18:42:15 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:55:21 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,25 @@
 # define SEA_TR "assets/map/sea/top_right.xpm"
 # define SEA_BL "assets/map/sea/bottom_left.xpm"
 # define SEA_BR "assets/map/sea/bottom_right.xpm"
-// Entry | Exit tiles
-# define ENTRY "assets/map/io/entry.xpm"
-# define EXIT_0 "assets/map/io/exit_closed.xpm"
-# define EXIT_1 "assets/map/io/exit_open.xpm"
 // Ground tiles
 # define GND_0 "assets/map/floor/std_0.xpm"
 # define GND_1 "assets/map/floor/std_1.xpm"
 # define GND_2 "assets/map/floor/std_2.xpm"
-// Collectible tiles
-# define LOOT_0 "assets/map/collect/closed.xpm"
-# define LOOT_1 "assets/map/collect/open.xpm"
 // Obstacles tiles
 # define WALL_0 "assets/map/wall/hole.xpm"
 # define WALL_1 "assets/map/wall/mountain.xpm"
 # define WALL_2 "assets/map/wall/stone.xpm"
+// Entry | Exit tiles
+# define ENTRY "assets/map/io/entry.xpm"
+# define EXIT_0 "assets/map/io/exit_closed.xpm"
+# define EXIT_1 "assets/map/io/exit_open.xpm"
+// Collectible tiles
+# define LOOT_0 "assets/map/collect/closed.xpm"
+# define LOOT_1 "assets/map/collect/open.xpm"
+// Enemies
+# define SPK_0 "assets/map/enemies/spikes_0.xpm"
+# define SPK_1 "assets/map/enemies/spikes_1.xpm"
+# define SPK_2 "assets/map/enemies/spikes_2.xpm"
 /*--      Player sprites     ---*/
 // Idle
 # define IDLE_L0 "assets/player/idle/idle_left_0.xpm"
@@ -93,6 +97,7 @@
 # define ACT_C21 "assets/player/action/collect_21.xpm"
 # define ACT_C22 "assets/player/action/collect_22.xpm"
 # define ACT_C3 "assets/player/action/collect_3.xpm"
+
 // Entry | Exit
 # define P1_ENTRY "assets/player/io/entry.xpm"
 # define P1_EXIT_0 "assets/player/io/exit_closed.xpm"
@@ -131,6 +136,8 @@ enum e_config_error
 	E_TYPE,
 	E_CNT,
 	E_PATH,
+	E_MLX,
+	E_IMG,
 };
 
 typedef enum e_config_error	t_error;
@@ -162,6 +169,7 @@ typedef struct s_count
 	int	c;
 }	t_count;
 
+//Total image 76
 typedef struct s_tiles
 {
 	void	*f[3];
@@ -169,6 +177,7 @@ typedef struct s_tiles
 	void	*w[3];
 	void	*io[3];
 	void	*c[2];
+	void	*e[3];
 }	t_tiles;
 
 typedef struct s_sprites
@@ -177,7 +186,6 @@ typedef struct s_sprites
 	void	*move[16];
 	void	*act[6];
 	void	*io[3];
-	void	*death[6];
 }	t_sprites;
 
 typedef struct s_image
@@ -187,6 +195,8 @@ typedef struct s_image
 	void		*num[10];
 	void		*end[3];
 }	t_image;
+
+# define IMG_NB 70
 
 typedef struct s_game
 {
@@ -207,15 +217,14 @@ typedef struct s_game
 void	msg_error(int err_id, char *item);
 //Free structure and exit program with message error
 void	exit_error(int err_id, char *item, t_game *data);
+int		img_error(t_game *data);
 
 void	free_map(t_point **map, int height);
-void	destroy_tiles(t_game *data);
-void	destroy_sprites(t_game *data);
-void	destroy_num(t_game *data);
 void 	destroy_image_v2(void *mlx_ptr, void *img);
+int		destroy_images(t_game *data);
 void	free_game(t_game *data);
 
-void	file_type_check(char *file);
+void	file_type_error(char *file);
 int		wall_check(t_game *data);
 int		type_count_check(t_game *data);
 void	flood(t_point **map, t_point *pt);

@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:09:06 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/17 18:42:05 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:27:00 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,6 @@ int	loop_hook(t_game *data)
 		print_mv_cnt(data, data->mv_cnt);
 	}
 	i = 0;
-	return (0);
-}
-
-int	exit_game(t_game *data)
-{
-	destroy_sprites(data);
-	destroy_tiles(data);
-	destroy_num(data);
-	mlx_clear_window(data->ptr, data->win);
-	mlx_destroy_window(data->ptr, data->win);
-	mlx_destroy_display(data->ptr);
-	free(data->ptr);
-	free_game(data);
-	exit(0);
 	return (0);
 }
 

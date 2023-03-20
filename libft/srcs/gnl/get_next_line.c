@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:20:33 by maaliber          #+#    #+#             */
-/*   Updated: 2023/02/02 15:36:00 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:21:26 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	*read_file(char *store, int fd)
 			break ;
 		buffer[rbytes] = 0;
 		text = ft_strjoin_gnl(text, buffer);
+		if (!text)
+			return (free(buffer), NULL);
 	}
 	line = getline_and_store(store, text);
 	return (free(text), free(buffer), line);

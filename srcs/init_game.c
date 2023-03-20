@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:31 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/17 18:27:57 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:37:50 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,22 @@ t_game	*init_game(char *file)
 	if (map_error(data))
 		exit_error(map_error(data), 0, data);
 	data->ptr = mlx_init();
+	if (!data->ptr)
+		exit_error(E_MLX, 0, data);
 	data->win = mlx_new_window(data->ptr,
-			IMG_W * data->width, IMG_W * data->height, "so_long");
-	generate_map(data);
+		IMG_W * data->width, IMG_W * data->height, "so_long");
+	if (!data->win)
+		exit_error(E_MLX, 0, data);
 	xpm_num(data);
 	xpm_end_game(data);
+	xpm_map_sea(data);
+	xpm_map_ground(data);
+	xpm_p1_idle(data);
+	xpm_p1_move(data);
+	xpm_p1_special(data);
+	if (img_error(data))
+		exit_error(E_IMG, 0, data);
+	generate_map(data);
 	init_player(data);
 	return (data);
 }

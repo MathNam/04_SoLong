@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_util.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:20:33 by maaliber          #+#    #+#             */
-/*   Updated: 2023/02/02 15:47:44 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:19:31 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strjoin_gnl(char *txt, char *add)
 	l = ft_strlen(txt) + ft_strlen(add);
 	arr = malloc(sizeof(char) * l + 1);
 	if (!arr)
-		return (NULL);
+		return (free(txt), NULL);
 	i = 0;
 	while (txt[i])
 	{

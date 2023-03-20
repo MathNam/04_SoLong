@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:12:01 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/16 16:36:25 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:49:35 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,4 @@ void	init_player(t_game *data)
 	p1_pt->type = 'I';
 	data->p1.img = data->img.p1.io[0];
 	data->p1.c_cnt = 0;
-	xpm_p1_idle(data);
-	xpm_p1_move(data);
-	xpm_p1_special(data);
 }

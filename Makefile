@@ -11,10 +11,10 @@ PROJECT_NAME = So_long
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 
 # Compiler	
-CC = cc
+CC = clang
 
 # Compiler Flags
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 #______________________________________________________________________________#
 ############################### Libraries ######################################
@@ -161,6 +161,9 @@ $(OBJS_DIR):
 	@mkdir $@
 
 bonus: all
+
+malloc_test: $(OBJS) all
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ $(OBJS) $(LIBFT) $(MLX) $(INCLUDES) $(LDFLAGS) -L. -lmallocator
 
 #_____Clean_____#
 clean: lclean where_c

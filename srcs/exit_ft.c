@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:20:21 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/17 14:14:08 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:38:38 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,58 +24,53 @@ void	free_map(t_point **map, int height)
 	free(map);
 }
 
+
+void	destroy_image_v2(void *mlx_ptr, void *img)
+{
+	if (!img)
+		return ;
+	mlx_destroy_image(mlx_ptr, img);
+}
+
+int		destroy_images(t_game *data)
+{
+	void	**p;
+	int		i;
+
+	p = (void **)&data->img;
+	i = 0;
+	while (i < IMG_NB)
+		destroy_image_v2(data->ptr, p[i++]);
+	return (0);
+}
+
 void	free_game(t_game *data)
 {
 	if (!data)
 		return ;
+	if (data->ptr)
+		free(data->ptr);
 	free_map(data->map, data->height);
 	free(data);
 }
 
-void	destroy_tiles(t_game *data)
+int	exit_game(t_game *data)
 {
-	int	i;
-
-	i = 0;
-	while (i < 3)
-		destroy_image_v2(data->ptr, data->img.map.f[i++]);
-	i = 0;
-	while (i < 8)
-		destroy_image_v2(data->ptr, data->img.map.s[i++]);
-	i = 0;
-	while (i < 3)
-		destroy_image_v2(data->ptr, data->img.map.w[i++]);
-	i = 0;
-	while (i < 3)
-		destroy_image_v2(data->ptr, data->img.map.io[i++]);
-	i = 0;
-	while (i < 2)
-		destroy_image_v2(data->ptr, data->img.map.c[i++]);
-}
-
-void	destroy_sprites(t_game *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < 10)
-		destroy_image_v2(data->ptr, data->img.p1.idle[i++]);
-	i = 0;
-	while (i < 16)
-		destroy_image_v2(data->ptr, data->img.p1.move[i++]);
-	i = 0;
-	while (i < 6)
-		destroy_image_v2(data->ptr, data->img.p1.act[i++]);
-	i = 0;
-	while (i < 3)
-		destroy_image_v2(data->ptr, data->img.p1.io[i++]);
-}
-
-void	destroy_num(t_game *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < 10)
-		destroy_image_v2(data->ptr, data->img.num[i++]);
+	if (!data)
+		return (0);
+	if (data->ptr)
+	{
+		destroy_images(data);
+		if (data->win)
+		{
+			mlx_clear_window(data->ptr, data->win);
+			mlx_destroy_window(data->ptr, data->win);
+		}
+		mlx_destroy_display(data->ptr);
+		free(data->ptr);
+	}
+	free_map(data->map, data->height);
+	free(data);
+	exit(0);
+	return (0);
 }

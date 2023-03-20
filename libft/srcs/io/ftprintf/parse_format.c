@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:38:38 by maaliber          #+#    #+#             */
-/*   Updated: 2023/02/02 15:36:28 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:50:41 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_arg_spec	*init_arg(const char *fmt)
 t_lst_arg	*ft_parse_format(const char *fmt)
 {
 	t_lst_arg	*arg_list;
+	t_lst_arg	*arg;
 	t_arg_spec	*spec;
 	const char	*f = (const char *) fmt;
 
@@ -92,7 +93,12 @@ t_lst_arg	*ft_parse_format(const char *fmt)
 	while (f)
 	{
 		spec = init_arg(f);
-		ft_lstadd_back_arg(&arg_list, ft_lstnew_arg(spec));
+		if (!spec)
+			return (NULL);
+		arg = ft_lstnew_arg(spec);
+		if (!arg)
+			return (NULL);
+		ft_lstadd_back_arg(&arg_list, arg);
 		f = find_next_fmt(f + spec->size);
 	}
 	return (arg_list);

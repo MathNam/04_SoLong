@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_output.c                                        :+:      :+:    :+:   */
+/*   output.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 20:53:52 by maaliber          #+#    #+#             */
-/*   Updated: 2023/01/31 18:58:42 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:49:28 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ ssize_t	write_arg(va_list ap, t_arg_spec *spec)
 	ssize_t		wbytes;
 
 	output = init_output();
+	if (!output)
+		return (-1);
 	idx = ft_index(sup_types, spec->type);
 	if (idx < 0)
 		return (-1);

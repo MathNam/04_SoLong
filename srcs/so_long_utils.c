@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:29:45 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/17 18:42:47 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:18:54 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,4 @@ void	print_map(t_game *data)
 		write(1, "\n", 1);
 		y++;
 	}
-}
-
-void	destroy_image_v2(void *mlx_ptr, void *img)
-{
-	if (!img)
-		return ;
-	mlx_destroy_image(mlx_ptr, img);
 }

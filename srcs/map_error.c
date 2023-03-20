@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   map_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:29:09 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/10 11:46:43 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:35:26 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	type_count_check(t_game *data)
 		x = 0;
 		while (x < data->width)
 		{
-			if (!ft_ischarset(data->map[y][x].type, "01PEC"))
+			if (!ft_ischarset(data->map[y][x].type, "01PECX"))
 				return (E_TYPE);
 			if (data->map[y][x].type == 'P')
 				data->cnt.p++;
