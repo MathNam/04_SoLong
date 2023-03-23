@@ -6,11 +6,31 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:29:45 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 17:18:54 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:02:51 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+t_point	*find_point(t_game *data, char c)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			if (data->map[y][x].type == c)
+				return (&data->map[y][x]);
+			x++;
+		}
+		y++;
+	}
+	return (NULL);
+}
 
 void	print_map(t_game *data)
 {

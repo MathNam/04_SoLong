@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_ft.c                                          :+:      :+:    :+:   */
+/*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:20:21 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 17:38:38 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:30:28 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	free_map(t_point **map, int height)
 	free(map);
 }
 
-
 void	destroy_image_v2(void *mlx_ptr, void *img)
 {
 	if (!img)
@@ -32,7 +31,7 @@ void	destroy_image_v2(void *mlx_ptr, void *img)
 	mlx_destroy_image(mlx_ptr, img);
 }
 
-int		destroy_images(t_game *data)
+int	destroy_images(t_game *data)
 {
 	void	**p;
 	int		i;
@@ -44,20 +43,10 @@ int		destroy_images(t_game *data)
 	return (0);
 }
 
-void	free_game(t_game *data)
+void	free_data(t_game *data)
 {
 	if (!data)
 		return ;
-	if (data->ptr)
-		free(data->ptr);
-	free_map(data->map, data->height);
-	free(data);
-}
-
-int	exit_game(t_game *data)
-{
-	if (!data)
-		return (0);
 	if (data->ptr)
 	{
 		destroy_images(data);
@@ -71,6 +60,11 @@ int	exit_game(t_game *data)
 	}
 	free_map(data->map, data->height);
 	free(data);
+}
+
+int	exit_game(t_game *data)
+{
+	free_data(data);
 	exit(0);
 	return (0);
 }

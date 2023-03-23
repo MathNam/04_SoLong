@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:01:58 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 16:55:21 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:59:04 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 
 /* Key code */
 # define K_ESC 0xff1b
-# define K_W XK_w
-# define K_A XK_a
-# define K_S XK_s
-# define K_D XK_d
+# define K_W 0x0077
+# define K_A 0x0061
+# define K_S 0x0073
+# define K_D 0x0064
 # define ALIVE 1
 
 /*-----Path to image assets-----*/
@@ -212,75 +212,143 @@ typedef struct s_game
 	int			end;
 }	t_game;
 
-/*__Error description functions__*/
-//Print error description in terminal
-void	msg_error(int err_id, char *item);
-//Free structure and exit program with message error
-void	exit_error(int err_id, char *item, t_game *data);
-int		img_error(t_game *data);
+/*__Utilised functions__*/
 
-void	free_map(t_point **map, int height);
-void 	destroy_image_v2(void *mlx_ptr, void *img);
-int		destroy_images(t_game *data);
-void	free_game(t_game *data);
-
-void	file_type_error(char *file);
-int		wall_check(t_game *data);
-int		type_count_check(t_game *data);
-void	flood(t_point **map, t_point *pt);
-int		path_check(t_game *data);
-int		map_error(t_game *data);
-
+// Find unique point in map (data->map) of type "c".
+t_point	*find_point(t_game *data, char c);
+// Print map (data->map) terminal.
 void	print_map(t_game *data);
 
-void	set_map_dim(t_game *data, char *file);
-t_point	**init_map(t_game	*data);
-void	set_point(t_point *pt, char type, int x, int y);
-void	set_map(t_game *data, char *file);
+/*__Program termination__*/
 
+// Free map (data->map) terminal.
+void	free_map(t_point **map, int height);
+// Destroy MLX image if the image is initialised (non-NULL pointer).
+void	destroy_image_v2(void *mlx_ptr, void *img);
+// Destroy all MLX images used in game.
+int		destroy_images(t_game *data);
+/* Free all content of game : 
+map, MLX pointer, MLX images, windows and display.*/
+void	free_data(t_game *data);
+// Free all content of game then exit program with status 0.
+int		exit_game(t_game *data);
+
+/*__Error management__*/
+
+// Print error description in terminal.
+void	msg_error(int err_id, char *item);
+// Free all content of game then exit program with status 1.
+void	exit_error(int err_id, char *item, t_game *data);
+// Check for right file extension, only .ber allowed.
+void	file_type_error(char *file);
+// Check for right file extension, only .ber allowed.
+int		img_error(t_game *data);
+
+/*__Invalid map identification__*/
+
+// Check if map is surrounded by walls.
+int		wall_check(t_game *data);
+// Check is player (P) nb = 1, exit (E) nb = 1, collectible (C) nb > 1.
+int		type_count_check(t_game *data);
+// Flood map to mark all accessible point from player data->map[y][x].acc.
+void	flood(t_point **map, t_point *pt);
+// Check if all collectibles and exit are accessible.
+int		path_check(t_game *data);
+// Check all map error if the map is invalid exit with status 1.
+int		map_error(t_game *data);
+
+/*__XPM conversion__*/
+
+// Convert number *.xpm to mlx_image.
 void	xpm_num(t_game *data);
-
-/*__Map generation functions__*/
-// Convert sea tile *.xpm to mlx_image
+// Convert end game *.xpm to mlx_image.
+void	xpm_end_game(t_game *data);
+// Convert sea tile *.xpm to mlx_image.
 void	xpm_map_sea(t_game *data);
-// Convert ground tile *.xpm to mlx_image
+// Convert ground tile *.xpm to mlx_image.
 void	xpm_map_ground(t_game *data);
-// Associate sea tile with corresponding image
-void	sea_tile(t_game *data);
-// Associate ground tile with corresponding image
-void	gnd_tile(t_game *data);
-// Link each tile of map [data->map[y][x].img] from image in ./assets
-void	generate_map(t_game *data);
-
-/*__Player sprites functions__*/
-// Convert idle frames *.xpm to mlx_image
+// Convert idle frames *.xpm to mlx_image.
 void	xpm_p1_idle(t_game *data);
-// Convert move frames *.xpm to mlx_image
+// Convert move frames *.xpm to mlx_image.
 void	xpm_p1_move(t_game *data);
-// Convert special frames *.xpm to mlx_image
+// Convert special frames *.xpm to mlx_image.
 void	xpm_p1_special(t_game *data);
-// Add sprites to game data [data->img.p1] from image in ./assets/player
+// Convert all *.xpm files used in project to mlx_image.
+void	xpm_images(t_game *data);
+
+/*__Game initialisation__*/
+
+/* Set map dimension based on infile 
+if the map is not rectangular or GNL fails exit with status 1.*/
+void	set_map_dim(t_game *data, char *file);
+// Initialise map (t_point **) and each point (t_point) with coordinates.
+t_point	**init_map(t_game	*data);
+/* Fill map type data->map[y][x].type based on infile.
+If GNL fails exit with status 1*/
+void	set_map_type(t_game *data, char *file);
+// Associate sea tile with corresponding image.
+void	sea_tile(t_game *data);
+// Associate ground tile with corresponding image.
+void	gnd_tile(t_game *data);
+// Link each tile of map (data->map[y][x].img) from image in ./assets.
+void	generate_map(t_game *data);
+// Initialise player (t_player) with starting coordinates and sprite.
 void	init_player(t_game *data);
+/* Initialise all content used in game :
+All MLX images from xpm files, Map data and tiles, Player data.
+If any error is encountered exit with status 1.*/
 t_game	*init_game(char *file);
 
-t_point	*find_point(t_game *data, char c);
+/*__Player mouvements__*/
+
+/* Move the player (data->p1.x, data->p1.y) one square up if possible.
+Start animation based on direction and target tile type.*/
 void	move_up(t_game *data);
+/* Move the player (data->p1.x, data->p1.y) one square down if possible.
+Start animation based on direction and target tile type.*/
 void	move_down(t_game *data);
+/* Move the player (data->p1.x, data->p1.y) one square left if possible.
+Start animation based on direction and target tile type.*/
 void	move_left(t_game *data);
+/* Move the player (data->p1.x, data->p1.y) one square right if possible.
+Start animation based on direction and target tile type.*/
 void	move_right(t_game *data);
+// Display move count on the MLX window
 void	print_mv_cnt(t_game *data, int mv_cnt);
 
+/*__Display map and end-game screens__*/
+
+// Render map background.
+void	render_map(t_game *data);
+// Display endgame screens lost or won game.
+void	end_screen(t_game *data);
+
+/*__Player animation__*/
+
+/* Animate player after move input if target tile is type '0'.
+Put user input on pending.*/
 void	anim_move_p1(t_game *data);
+// Animate idle player.
 void	anim_idle_p1(t_game *data);
+/* Animate player after move input if target tile is an active collectible
+type 'C' (inactive type 'c'). Put user input on pending.*/
 void	anim_col_p1(t_game *data);
+// Animate player on special tiles.
 void	anim_spe_p1(t_game *data);
 
-//Test
-void	render_map(t_game *data);
-void	end_screen(t_game *data);
-void	xpm_end_game(t_game *data);
+/*__Core__*/
 
-int		exit_game(t_game *data);
+/* Update game status : based on nb of collectibles collected and player 
+position. Check if game as ended.*/
+void	update_game(t_game *data);
+// MLX loop_hook handling animation based on player action (data->p1.action).
+int		loop_hook(t_game *data);
+// MLX key_hook handling user input.
+int		key_hook(int key, t_game *data);
+// Initialise MLX loop_hook, MLX key_hook, MLX loop, MLX key.
 void	play(t_game *data);
+
+/*__Main__*/
+int		main(int ac, char **av);
 
 #endif

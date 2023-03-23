@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_player.c                                      :+:      :+:    :+:   */
+/*   xpm_sprites.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 15:12:01 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 16:49:35 by maaliber         ###   ########.fr       */
+/*   Created: 2023/03/22 13:42:04 by maaliber          #+#    #+#             */
+/*   Updated: 2023/03/22 14:01:31 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,4 @@ void	xpm_p1_special(t_game *data)
 	data->img.p1.io[0] = mlx_xpm_file_to_image(data->ptr, P1_ENTRY, &w, &h);
 	data->img.p1.io[1] = mlx_xpm_file_to_image(data->ptr, P1_EXIT_0, &w, &h);
 	data->img.p1.io[2] = mlx_xpm_file_to_image(data->ptr, P1_EXIT_1, &w, &h);
-}
-
-void	init_player(t_game *data)
-{
-	t_point	*p1_pt;
-
-	p1_pt = find_point(data, 'P');
-	data->p1.x = p1_pt->x;
-	data->p1.y = p1_pt->y;
-	data->p1.dir = 0;
-	data->p1.action = -1;
-	p1_pt->type = 'I';
-	data->p1.img = data->img.p1.io[0];
-	data->p1.c_cnt = 0;
 }

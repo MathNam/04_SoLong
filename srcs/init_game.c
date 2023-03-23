@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:31 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 17:37:50 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:58:57 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	set_map_dim(t_game *data, char *file)
 t_point	**init_map(t_game	*data)
 {
 	t_point	**map;
+	int		x;
 	int		y;
 
 	map = malloc(sizeof(t_point *) * data->height);
@@ -50,33 +51,30 @@ t_point	**init_map(t_game	*data)
 	y = 0;
 	while (y < data->height)
 	{
-		map[y] = malloc(sizeof(t_point) * data->width);
+		map[y] = ft_calloc(1, sizeof(t_point) * data->width);
 		if (!map[y])
 		{
 			free_map(map, data->height);
 			exit_error(E_MEM, 0, data);
+		}
+		x = 0;
+		while (x < data->width)
+		{
+			map[y][x].x = x;
+			map[y][x++].y = y;
 		}
 		y++;
 	}
 	return (map);
 }
 
-void	set_point(t_point *pt, char type, int x, int y)
-{
-	pt->type = type;
-	pt->acc = 0;
-	pt->x = x;
-	pt->y = y;
-}
-
-void	set_map(t_game *data, char *file)
+void	set_map_type(t_game *data, char *file)
 {
 	int		fd;
 	char	*line;
 	int		x;
 	int		y;
 
-	data->map = init_map(data);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		exit_error(E_FILE, file, data);
@@ -89,13 +87,25 @@ void	set_map(t_game *data, char *file)
 		x = 0;
 		while (x < data->width)
 		{
-			set_point(&data->map[y][x], line[x], x, y);
+			data->map[y][x].type = line[x];
 			x++;
 		}
 		free(line);
 		y++;
 	}
 	close(fd);
+}
+
+void	init_player(t_game *data)
+{
+	t_point	*p1_pt;
+
+	p1_pt = find_point(data, 'P');
+	data->p1.x = p1_pt->x;
+	data->p1.y = p1_pt->y;
+	data->p1.action = -1;
+	p1_pt->type = 'I';
+	data->p1.img = data->img.p1.io[0];
 }
 
 t_game	*init_game(char *file)
@@ -106,6 +116,7 @@ t_game	*init_game(char *file)
 	if (!data)
 		exit_error(E_MEM, 0, 0);
 	set_map_dim(data, file);
+	data->map = init_map(data);
 	set_map(data, file);
 	if (map_error(data))
 		exit_error(map_error(data), 0, data);
@@ -113,16 +124,10 @@ t_game	*init_game(char *file)
 	if (!data->ptr)
 		exit_error(E_MLX, 0, data);
 	data->win = mlx_new_window(data->ptr,
-		IMG_W * data->width, IMG_W * data->height, "so_long");
+			IMG_W * data->width, IMG_W * data->height, "so_long");
 	if (!data->win)
 		exit_error(E_MLX, 0, data);
-	xpm_num(data);
-	xpm_end_game(data);
-	xpm_map_sea(data);
-	xpm_map_ground(data);
-	xpm_p1_idle(data);
-	xpm_p1_move(data);
-	xpm_p1_special(data);
+	xpm_images(data);
 	if (img_error(data))
 		exit_error(E_IMG, 0, data);
 	generate_map(data);

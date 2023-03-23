@@ -6,20 +6,34 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:09:06 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 17:27:00 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:24:23 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	key_hook(int key, t_game *data)
+void	update_game(t_game *data)
 {
 	t_point		*ex;
 
-	if (data->p1.action > 0)
-		return (0);
+	if (data->p1.c_cnt == data->cnt.c)
+	{
+		ex = find_point(data, 'E');
+		data->map[ex->y][ex->x].img = data->img.map.io[2];
+		data->cnt.c = -1;
+	}
+	if (data->cnt.c == -1 && data->map[data->p1.y][data->p1.x].type == 'E')
+		data->end = 1;
+	if (data->map[data->p1.y][data->p1.x].type == 'X')
+		data->end = 2;
+}
+
+int	key_hook(int key, t_game *data)
+{
 	if (key == K_ESC)
 		exit_game(data);
+	if (data->p1.action > 0)
+		return (0);
 	if (data->end)
 		return (0);
 	if (key == K_W)
@@ -30,14 +44,7 @@ int	key_hook(int key, t_game *data)
 		move_down(data);
 	if (key == K_D)
 		move_right(data);
-	if (data->p1.c_cnt == data->cnt.c)
-	{
-		ex = find_point(data, 'E');
-		data->map[ex->y][ex->x].img = data->img.map.io[2];
-		data->cnt.c = -1;
-	}
-	if (data->cnt.c == -1 && data->map[data->p1.y][data->p1.x].type == 'E')
-		data->end = 1;
+	update_game(data);
 	return (0);
 }
 

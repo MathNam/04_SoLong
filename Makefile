@@ -88,19 +88,19 @@ SRCS_DIR = ./srcs
 ############################### Sources ########################################
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 
-SRCS += error.c
-SRCS += exit_ft.c
+SRCS += exit_error.c
+SRCS += exit_game.c
 SRCS += so_long_utils.c
 SRCS += map_error.c
+SRCS += xpm_core.c
+SRCS += xpm_sprites.c
 SRCS += map_graphics.c
-SRCS += init_player.c
 SRCS += init_game.c
-SRCS += render.c
+SRCS += display.c
 SRCS += move_count.c
-SRCS += animation.c
+SRCS += animate.c
 SRCS += play.c
 SRCS += move.c
-SRCS += menu.c
 SRCS += so_long.c
 
 #______________________________________________________________________________#
