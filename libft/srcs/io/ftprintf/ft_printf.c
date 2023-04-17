@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 14:45:01 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 17:58:22 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:14:47 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_printf(const char *format, ...)
 	ssize_t				w_bytes;
 
 	arg_list = ft_parse_format(format);
-	if (!arg_list)
+	if (!arg_list && find_next_fmt(format))
 		return (-1);
 	if (ft_format_error(arg_list, (char *)sup_types))
 		return (ft_lstclear_arg(&arg_list), -1);

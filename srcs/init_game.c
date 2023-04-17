@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:31 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/23 12:58:57 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:26:52 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_game	*init_game(char *file)
 		exit_error(E_MEM, 0, 0);
 	set_map_dim(data, file);
 	data->map = init_map(data);
-	set_map(data, file);
+	set_map_type(data, file);
 	if (map_error(data))
 		exit_error(map_error(data), 0, data);
 	data->ptr = mlx_init();

@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output.c                                           :+:      :+:    :+:   */
+/*   ft_output.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 20:53:52 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:28 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:14:47 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-t_output	*init_output(void)
-{
-	t_output	*output;
-
-	output = malloc(sizeof(t_output));
-	if (!output)
-		return (NULL);
-	output->to_print = NULL;
-	output->size = 0;
-	return (output);
-}
 
 void	spec_mod(t_output *output, t_arg_spec *spec)
 {
@@ -52,13 +40,15 @@ ssize_t	write_arg(va_list ap, t_arg_spec *spec)
 	t_output	*output;
 	ssize_t		wbytes;
 
-	output = init_output();
+	output = ft_calloc(1, sizeof(t_output));
 	if (!output)
-		return (-1);
+		return (0);
 	idx = ft_index(sup_types, spec->type);
 	if (idx < 0)
-		return (-1);
+		return (free(output), 0);
 	process_arg[idx](output, ap);
+	if (!output->to_print && !(spec->type == 's' && output->size == 0))
+		return (free(output), 0);
 	spec_mod(output, spec);
 	wbytes = output->size;
 	write(1, output->to_print, wbytes);

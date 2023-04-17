@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:17:49 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/22 15:37:15 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:22:36 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ struct s_errdesc
 	{E_SUCCESS, "No error"},
 	{E_STD, 0},
 	{E_NOMSG, 0},
-	{E_ARG, "invalid number of arguments"},
-	{E_EXT, "invalid file extension"},
-	{E_FILE, "no such file"},
-	{E_MEM, "memory allocation error"},
-	{E_GNL, "error executing get_next_line(...)"},
-	{E_DIM, "invalid map - not rectangular"},
-	{E_EMPTY, "invalid map - empty"},
-	{E_WALL, "invalid map - not closed/surrounded by walls"},
-	{E_TYPE, "invalid map - supported type are '01PECX'"},
-	{E_CNT, "invalid map - player/exit/collectible count invalid"},
-	{E_PATH, "invalid map - no valid path"},
-	{E_MLX, "MLX error"},
-	{E_IMG, "image error - something went wrong converting .xpm file"},
+	{E_ARG, "Error: invalid number of arguments"},
+	{E_EXT, "Error: invalid file extension"},
+	{E_FILE, "Error: no such file"},
+	{E_MEM, "Error: memory allocation error"},
+	{E_GNL, "Error: error executing get_next_line(...)"},
+	{E_DIM, "Error: invalid map - not rectangular"},
+	{E_EMPTY, "Error: invalid map - empty"},
+	{E_WALL, "Error: invalid map - not closed/surrounded by walls"},
+	{E_TYPE, "Error: invalid map - supported type are '01PECX'"},
+	{E_CNT, "Error: invalid map - player/exit/collectible count invalid"},
+	{E_PATH, "Error: invalid map - no valid path"},
+	{E_MLX, "Error: MLX error"},
+	{E_IMG, "Error: image error - something went wrong converting .xpm file"},
 };
 
 void	msg_error(int err_id, char *item)
