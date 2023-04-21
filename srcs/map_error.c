@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:29:09 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/20 15:35:26 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:20:27 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,17 @@ int	type_count_check(t_game *data)
 void	flood(t_point **map, t_point *pt)
 {
 	pt->acc = 1;
-	if (map[pt->y][pt->x + 1].type != '1' && map[pt->y][pt->x + 1].acc == 0)
+	if (map[pt->y][pt->x + 1].type != '1' && map[pt->y][pt->x + 1].type != 'X'
+		&& map[pt->y][pt->x + 1].acc == 0)
 		flood(map, &map[pt->y][pt->x + 1]);
-	if (map[pt->y + 1][pt->x].type != '1' && map[pt->y + 1][pt->x].acc == 0)
+	if (map[pt->y + 1][pt->x].type != '1' && map[pt->y + 1][pt->x].type != 'X'
+		&& map[pt->y + 1][pt->x].acc == 0)
 		flood(map, &map[pt->y + 1][pt->x]);
-	if (map[pt->y][pt->x - 1].type != '1' && map[pt->y][pt->x - 1].acc == 0)
+	if (map[pt->y][pt->x - 1].type != '1' && map[pt->y][pt->x - 1].type != 'X'
+		&& map[pt->y][pt->x - 1].acc == 0)
 		flood(map, &map[pt->y][pt->x - 1]);
-	if (map[pt->y - 1][pt->x].type != '1' && map[pt->y - 1][pt->x].acc == 0)
+	if (map[pt->y - 1][pt->x].type != '1' && map[pt->y - 1][pt->x].type != 'X'
+		&& map[pt->y - 1][pt->x].acc == 0)
 		flood(map, &map[pt->y - 1][pt->x]);
 }
 

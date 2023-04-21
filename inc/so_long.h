@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:01:58 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/23 12:59:04 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:31:30 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ enum e_config_error
 	E_GNL,
 	E_DIM,
 	E_EMPTY,
+	E_OVER,
 	E_WALL,
 	E_TYPE,
 	E_CNT,

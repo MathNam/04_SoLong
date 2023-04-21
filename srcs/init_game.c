@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:31 by maaliber          #+#    #+#             */
-/*   Updated: 2023/03/28 16:26:52 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:31:11 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	set_map_dim(t_game *data, char *file)
 	close(fd);
 	if (data->width == 0)
 		exit_error(E_EMPTY, 0, data);
+	if (data->width >= 40 || data->height >= 22)
+		exit_error(E_OVER, 0, data);
 }
 
 t_point	**init_map(t_game	*data)

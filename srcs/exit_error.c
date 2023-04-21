@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:17:49 by maaliber          #+#    #+#             */
-/*   Updated: 2023/04/21 12:58:38 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:32:20 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ struct s_errdesc
 	{E_GNL, "Error: error executing get_next_line(...)"},
 	{E_DIM, "Error: invalid map - not rectangular"},
 	{E_EMPTY, "Error: invalid map - empty"},
+	{E_OVER, "Error: invalid map - oversized"},
 	{E_WALL, "Error: invalid map - not closed/surrounded by walls"},
 	{E_TYPE, "Error: invalid map - supported type are '01PECX'"},
 	{E_CNT, "Error: invalid map - player/exit/collectible count invalid"},
