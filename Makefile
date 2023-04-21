@@ -11,7 +11,7 @@ PROJECT_NAME = So_long
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 
 # Compiler	
-CC = clang
+CC = cc
 
 # Compiler Flags
 CFLAGS = -Wall -Wextra -Werror -g
