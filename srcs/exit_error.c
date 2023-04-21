@@ -6,7 +6,7 @@
 /*   By: maaliber <maaliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:17:49 by maaliber          #+#    #+#             */
-/*   Updated: 2023/04/17 16:22:36 by maaliber         ###   ########.fr       */
+/*   Updated: 2023/04/21 12:58:38 by maaliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ struct s_errdesc
 	char	*msg;
 } errdesc[] = {
 	{E_SUCCESS, "No error"},
-	{E_STD, 0},
+	{E_STD, "Error"},
 	{E_NOMSG, 0},
 	{E_ARG, "Error: invalid number of arguments"},
 	{E_EXT, "Error: invalid file extension"},
@@ -45,9 +45,7 @@ void	msg_error(int err_id, char *item)
 
 void	exit_error(int err_id, char *item, t_game *data)
 {
-	if (err_id == E_STD)
-		perror("");
-	else if (err_id != E_NOMSG)
+	if (err_id != E_NOMSG)
 	{
 		ft_printf("%s", errdesc[err_id].msg);
 		if (item)

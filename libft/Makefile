@@ -196,12 +196,12 @@ $(NAME): $(OBJS)
 	@echo "▶ $(BGREEN)$(NAME)\t$(GREEN)Library created 🆗$(NC)"
 
 $(OBJS): $(OBJS_DIR)/%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
     #-----Output-----#
 	@if [ $(COUNT) = 0 ]; then echo ""; fi
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@$(eval PERCENT:=$(shell echo $$((100*$(COUNT)/$(TOTAL)))))
-	@printf "$(BCYAN)[%2d/%2d] %3d%%\t$(CYAN)Compiling %s\n$(NC)" $(COUNT) $(TOTAL) $(PERCENT) $< 
+	@printf "$(OL)$(BCYAN)[%2d/%2d] %3d%%\t$(CYAN)Compiling %s$(NC)\n" $(COUNT) $(TOTAL) $(PERCENT) $< 
 
 $(OBJS_DIR):
 	@mkdir $@
