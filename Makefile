@@ -129,11 +129,11 @@ COUNT	= 0
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 
 #_____Build_____#
-all: $(MLX) $(LIBFT) $(NAME)
+all: $(NAME)
 	@echo "--▶ $(BGREEN)all\t$(GREEN)done ✅$(NC)"
 	@echo "--------------------------------------------------"
 
-$(NAME): $(OBJS)
+$(NAME): $(MLX) $(LIBFT) $(OBJS)
 	@$(CC) $(CFLAGS) $^ $(LDFLAGS) $(INCLUDES) -o $@
     #-----Output-----#
 	@printf "$(OL)$(BCYAN)[%2d/%2d] %3d%%\t$(CYAN)All files compiled$(NC)\n" $(COUNT) $(TOTAL) $(PERCENT)
