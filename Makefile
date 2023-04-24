@@ -130,14 +130,14 @@ COUNT	= 0
 
 #_____Build_____#
 all: $(NAME)
-	@echo "--▶ $(BGREEN)all\t$(GREEN)done ✅$(NC)"
+	@echo "--▶ $(BGREEN)all\t$(GREEN)done$(NC)"
 	@echo "--------------------------------------------------"
 
 $(NAME): $(MLX) $(LIBFT) $(OBJS)
 	@$(CC) $(CFLAGS) $^ $(LDFLAGS) $(INCLUDES) -o $@
     #-----Output-----#
 	@printf "$(OL)$(BCYAN)[%2d/%2d] %3d%%\t$(CYAN)All files compiled$(NC)\n" $(COUNT) $(TOTAL) $(PERCENT)
-	@echo "▶$(BGREEN)$(NAME)\t$(GREEN)Executable created 🆗\n$(NC)"
+	@echo "▶$(BGREEN)$(NAME)\t$(GREEN)Executable created$(NC)"
 
 $(OBJS): $(OBJS_DIR)/%.o: %.c | $(LIBFT) $(OBJS_DIR) where
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -154,7 +154,7 @@ $(LIBFT):
 $(MLX):
 	@printf "$(OL)$(BCYAN)Compiling MinilibX...$(NC)\n"
 	@make -s -C $(MLX_DIR)
-	@printf "$(BGREEN)MinilibX\t$(GREEN) ready! ✅$(NC)\n"
+	@printf "$(BGREEN)MinilibX\t$(GREEN) ready!$(NC)\n"
 
 # Directories
 $(OBJS_DIR):
@@ -169,8 +169,8 @@ malloc_test: $(OBJS) all
 clean: lclean where_c
 	@rm -rf $(OBJS_DIR)
     #-----Output-----#
-	@echo "▶ $(BYELLOW)clean $(YELLOW)Object files removed from $(PROJECT_NAME) ⭕$(NC)"
-	@echo "--▶ $(BYELLOW)clean$(YELLOW) done ✅$(NC)"
+	@echo "▶ $(BYELLOW)clean $(YELLOW)Object files removed from $(PROJECT_NAME)$(NC)"
+	@echo "--▶ $(BYELLOW)clean$(YELLOW) done$(NC)"
 
 # Libraries Clean
 lclean:
@@ -182,10 +182,10 @@ fclean: clean
 	@rm -f $(MLX)
 	@rm -f $(NAME)
     #-----Output-----#
-	@echo "▶ $(BRED)fclean $(RED)libft.a removed ❌$(NC)"
-	@echo "▶ $(BRED)fclean $(RED)libmlx.a removed ❌$(NC)"
-	@echo "\t$(RED)$(NAME) removed ❌$(NC)"
-	@echo "--▶ $(BRED)fclean$(RED) done ✅$(NC)"
+	@echo "▶ $(BRED)fclean $(RED)libft.a removed$(NC)"
+	@echo "▶ $(BRED)fclean $(RED)libmlx.a removed$(NC)"
+	@echo "\t$(RED)$(NAME) removed$(NC)"
+	@echo "--▶ $(BRED)fclean$(RED) done$(NC)"
 
 # Current Make
 where_c:

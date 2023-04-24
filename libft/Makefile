@@ -186,14 +186,14 @@ COUNT	= 0
 
 #_____Build_____#
 all: where $(OBJS_DIR) $(NAME)
-	@echo "--▶ $(BGREEN)all\t$(GREEN)done ✅$(NC)"
+	@echo "--▶ $(BGREEN)all\t$(GREEN)done$(NC)"
 	@echo "--------------------------------------------------"
 
 $(NAME): $(OBJS) 
 	@ar rcs $@ $^
     #-----Output-----#
 	@printf "$(OL)$(BCYAN)[%2d/%2d] %3d%%\t$(CYAN)All files compiled\n$(NC)" $(COUNT) $(TOTAL) $(PERCENT)
-	@echo "▶ $(BGREEN)$(NAME)\t$(GREEN)Library created 🆗$(NC)"
+	@echo "▶ $(BGREEN)$(NAME)\t$(GREEN)Library created$(NC)"
 
 $(OBJS): $(OBJS_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -210,14 +210,14 @@ $(OBJS_DIR):
 clean: where
 	@rm -rf $(OBJS_DIR)
     #-----Output-----#
-	@echo "▶ $(BYELLOW)clean\t$(YELLOW)Object files removed from $(PROJECT_NAME) ⭕$(NC)"
-	@echo "--▶ $(BYELLOW)clean$(YELLOW) done ✅$(NC)"
+	@echo "▶ $(BYELLOW)clean\t$(YELLOW)Object files removed from $(PROJECT_NAME)$(NC)"
+	@echo "--▶ $(BYELLOW)clean$(YELLOW) done$(NC)"
 
 fclean: clean
 	@rm -f $(NAME)
     #-----Output-----#
-	@echo "▶ $(BRED)fclean\t$(RED)Library removed ❌$(NC)"
-	@echo "--▶ $(BRED)fclean$(RED) done ✅$(NC)"
+	@echo "▶ $(BRED)fclean\t$(RED)Library removed$(NC)"
+	@echo "--▶ $(BRED)fclean$(RED) done$(NC)"
 
 # Current Make
 where:
